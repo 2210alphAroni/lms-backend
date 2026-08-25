@@ -99,6 +99,12 @@
       "relation": "oneToMany",
       "target": "api::quiz-attempt.quiz-attempt",
       "mappedBy": "users_permissions_user"
+    },
+    "blog_posts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::blog-post.blog-post",
+      "mappedBy": "author"
     }
   }
 }
