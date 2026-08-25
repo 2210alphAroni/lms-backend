@@ -81,6 +81,12 @@
       "relation": "oneToMany",
       "target": "api::course.course",
       "mappedBy": "owner"
+    },
+    "enrollments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::enrollment.enrollment",
+      "mappedBy": "user"
     }
   }
 }
