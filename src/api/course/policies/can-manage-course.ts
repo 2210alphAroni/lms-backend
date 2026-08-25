@@ -1,40 +1,37 @@
-module.exports = async (policyContext, config, { strapi }) => {
+export default async (policyContext: any, config: any, { strapi }: any) => {
   const user = policyContext.state.user;
 
-  // Must be logged in
+  console.log('=== POLICY CHECK ===');
+  console.log('User:', user ? user.username : 'NO USER');
+  console.log('platformRole:', user ? user.platformRole : 'N/A');
+
   if (!user) {
     return false;
   }
 
   const role = user.platformRole;
 
-  // Admin and Content Manager can manage ANY course
   if (role === 'admin' || role === 'content_manager') {
+    console.log('Allowed: admin/content_manager');
     return true;
   }
 
-  // Instructor can only manage THEIR OWN course
   if (role === 'instructor') {
     const courseId = policyContext.params.id;
-
-    // If there's no course id (e.g. this is a "create" request), allow it —
-    // ownership will be enforced separately when we set `owner` on create
     if (!courseId) {
+      console.log('Allowed: instructor create');
       return true;
     }
-
     const course = await strapi.documents('api::course.course').findOne({
       documentId: courseId,
       populate: ['owner'],
     });
-
     if (!course || !course.owner) {
       return false;
     }
-
     return course.owner.id === user.id;
   }
 
-  // Students and any other role: not allowed
+  console.log('Blocked: role is', role);
   return false;
 };
