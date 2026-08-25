@@ -1188,9 +1188,9 @@ export interface PluginUsersPermissionsUser
         minLength: 6;
       }>;
     platformRole: Schema.Attribute.Enumeration<
-      ['   admin', '   content_manager', '   instructor', '   student']
+      ['admin', 'content_manager', 'instructor', 'student']
     > &
-      Schema.Attribute.DefaultTo<'   student'>;
+      Schema.Attribute.DefaultTo<'student'>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     quiz_attempts: Schema.Attribute.Relation<

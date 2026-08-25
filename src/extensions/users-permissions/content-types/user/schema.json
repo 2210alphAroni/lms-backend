@@ -68,12 +68,12 @@
     },
     "platformRole": {
       "type": "enumeration",
-      "default": "   student",
+      "default": "student",
       "enum": [
-        "   admin",
-        "   content_manager",
-        "   instructor",
-        "   student"
+        "admin",
+        "content_manager",
+        "instructor",
+        "student"
       ]
     },
     "courses": {
