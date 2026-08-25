@@ -25,6 +25,12 @@
       "type": "component",
       "component": "quiz.question",
       "repeatable": true
+    },
+    "quiz_attempts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::quiz-attempt.quiz-attempt",
+      "mappedBy": "quiz"
     }
   }
 }
