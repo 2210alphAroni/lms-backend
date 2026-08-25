@@ -87,6 +87,12 @@
       "relation": "oneToMany",
       "target": "api::enrollment.enrollment",
       "mappedBy": "user"
+    },
+    "lesson_progresses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lesson-progress.lesson-progress",
+      "mappedBy": "user"
     }
   }
 }
