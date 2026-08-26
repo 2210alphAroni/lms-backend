@@ -4,6 +4,31 @@
 import { factories } from '@strapi/strapi';
 
 export default factories.createCoreController('api::blog-post.blog-post', ({ strapi }) => ({
+  async create(ctx) {
+    const user = ctx.state.user;
+    const data = { ...(ctx.request.body?.data || {}) };
+    delete data.author;
+
+    ctx.request.body = {
+      ...ctx.request.body,
+      data,
+    };
+
+    const response: any = await super.create(ctx);
+    const authorId = user?.documentId || user?.id;
+
+    if (authorId && response?.data?.documentId) {
+      const updated = await strapi.documents('api::blog-post.blog-post').update({
+        documentId: response.data.documentId,
+        data: { author: { connect: [authorId] } } as any,
+        populate: ['author'],
+      });
+      response.data = updated;
+    }
+
+    return response;
+  },
+
   async find(ctx) {
     const user = ctx.state.user;
 
@@ -18,7 +43,7 @@ export default factories.createCoreController('api::blog-post.blog-post', ({ str
       ...ctx.query,
       filters: {
         ...(ctx.query.filters as object || {}),
-        status: 'published',
+        toggle: 'published',
       },
     };
 
@@ -39,7 +64,7 @@ export default factories.createCoreController('api::blog-post.blog-post', ({ str
 
     const isPrivileged = user && (user.platformRole === 'admin' || user.platformRole === 'content_manager');
 
-    if (post.status !== 'published' && !isPrivileged) {
+    if (post.toggle !== 'published' && !isPrivileged) {
       return ctx.notFound(); // hide drafts from unauthorized viewers entirely
     }
 

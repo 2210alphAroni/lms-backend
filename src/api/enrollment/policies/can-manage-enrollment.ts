@@ -14,14 +14,12 @@ export default async (policyContext: any, config: any, { strapi }: any) => {
 
   const enrollmentId = policyContext.params.id;
 
-  // CREATE: Student can only enroll themselves (their `user` field must match their own id)
+  // CREATE: students enroll as themselves; the controller attaches ctx.state.user.
   if (!enrollmentId) {
     if (role !== 'student') {
       return false;
     }
-    const bodyUserId = policyContext.request.body?.data?.user;
-    // bodyUserId could be a numeric id or documentId depending on how frontend sends it
-    return String(bodyUserId) === String(user.id);
+    return true;
   }
 
   // UPDATE/DELETE: Student can only touch their own enrollment

@@ -1,3 +1,10 @@
+function getRelationId(value: any) {
+  if (!value || typeof value !== 'object') return value;
+  const connected = Array.isArray(value.connect) ? value.connect[0] : value.connect;
+  if (!connected || typeof connected !== 'object') return connected;
+  return connected.documentId || connected.id;
+}
+
 export default async (policyContext: any, config: any, { strapi }: any) => {
   const user = policyContext.state.user;
 
@@ -16,7 +23,7 @@ export default async (policyContext: any, config: any, { strapi }: any) => {
 
     // Creating a new quiz: check the `course` field in the request body
     if (!quizId) {
-      const courseId = policyContext.request.body?.data?.course;
+      const courseId = getRelationId(policyContext.request.body?.data?.course);
       if (!courseId) {
         return false;
       }

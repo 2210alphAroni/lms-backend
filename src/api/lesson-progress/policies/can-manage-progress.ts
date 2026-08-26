@@ -19,8 +19,7 @@ export default async (policyContext: any, config: any, { strapi }: any) => {
     if (role !== 'student') {
       return false;
     }
-    const bodyUserId = policyContext.request.body?.data?.user;
-    return String(bodyUserId) === String(user.id);
+    return true;
   }
 
   // UPDATE/DELETE: student can only touch their own progress record

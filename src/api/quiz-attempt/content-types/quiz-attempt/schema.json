@@ -7,7 +7,7 @@
     "displayName": "QuizAttempt"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {

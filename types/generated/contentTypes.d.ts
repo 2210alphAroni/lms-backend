@@ -451,7 +451,7 @@ export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
     singularName: 'blog-post';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     author: Schema.Attribute.Relation<
@@ -488,7 +488,7 @@ export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
     singularName: 'course';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     coverImageUrl: Schema.Attribute.String;
@@ -532,7 +532,7 @@ export interface ApiEnrollmentEnrollment extends Struct.CollectionTypeSchema {
     singularName: 'enrollment';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     course: Schema.Attribute.Relation<'manyToOne', 'api::course.course'>;
@@ -566,7 +566,7 @@ export interface ApiLessonProgressLessonProgress
     singularName: 'lesson-progress';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     completed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -601,7 +601,7 @@ export interface ApiLessonLesson extends Struct.CollectionTypeSchema {
     singularName: 'lesson';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     content: Schema.Attribute.Blocks;
@@ -636,7 +636,7 @@ export interface ApiQuizAttemptQuizAttempt extends Struct.CollectionTypeSchema {
     singularName: 'quiz-attempt';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     answers: Schema.Attribute.JSON;
@@ -671,7 +671,7 @@ export interface ApiQuizQuiz extends Struct.CollectionTypeSchema {
     singularName: 'quiz';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     course: Schema.Attribute.Relation<'manyToOne', 'api::course.course'>;
