@@ -1,4 +1,13 @@
 export default {
+  async listUsers(ctx: any) {
+    const users = await strapi.documents('plugin::users-permissions.user').findMany({
+      fields: ['username', 'email', 'platformRole'],
+      sort: { username: 'asc' },
+    });
+
+    return { data: users };
+  },
+
   async changeUserRole(ctx: any) {
     const { id } = ctx.params;
     const { platformRole } = ctx.request.body || {};
